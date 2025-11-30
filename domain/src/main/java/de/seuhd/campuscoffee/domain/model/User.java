@@ -1,13 +1,34 @@
 package de.seuhd.campuscoffee.domain.model;
 
 import lombok.Builder;
-
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+
+/**
+ * We validate the fields in the API layer based on the DTOs, so no validation annotations are needed here.
+ *
+ * @param id           the unique identifier; null when the user has not been created yet
+ * @param createdAt    timestamp set on user creation
+ * @param updatedAt    timestamp set on user creation and update
+ * @param loginName    the login name of the user (unique identifier for login)
+ * @param emailAddress the email address of the user
+ * @param firstName    the first name of the user
+ * @param lastName     the last name of the user
+ */
 @Builder(toBuilder = true)
 public record User (
         //TODO: Implement user domain object
+        @Nullable Long id,
+        @Nullable LocalDateTime createdAt,
+        @Nullable LocalDateTime updatedAt,
+        @NonNull String loginName,
+        @NonNull String emailAddress,
+        @NonNull String firstName,
+        @NonNull String lastName
 ) implements Serializable { // serializable to allow cloning (see TestFixtures class).
     @Serial
     private static final long serialVersionUID = 1L;
